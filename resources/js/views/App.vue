@@ -1,7 +1,7 @@
 <template>
-  <div>
-        <header-guest />
-        <container-card />
+  <div class="container">
+      <header-guest />
+      <container-card />
   </div>
 </template>
 

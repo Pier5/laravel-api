@@ -1,6 +1,6 @@
 <template>
-  <header>
-      ciao
+  <header class="mb-3">
+      <h1>Sezione articoli</h1>
   </header>
 </template>
 
