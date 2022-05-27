@@ -5295,9 +5295,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ContainerCard',
   data: function data() {
     return {
       posts: [],
@@ -5350,7 +5348,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'PageShow',
+  props: ['slug'],
+  data: function data() {
+    return {
+      post: null,
+      baseApiUrl: 'http://localhost:8000/api/posts'
+    };
+  },
+  created: function created() {
+    this.getData(this.baseApiUrl + '/' + this.slug);
+  },
+  methods: {
+    getData: function getData(url) {
+      var _this = this;
+
+      if (url) {
+        Axios.get(url).then(function (res) {
+          _this.post = res.data.response.data;
+        });
+      }
+    }
+  }
+});
 
 /***/ }),
 
@@ -29122,7 +29143,7 @@ var render = function () {
     _c(
       "h1",
       [
-        _vm._v("Benvenuto! inizia a sfogliare i nostri "),
+        _vm._v("Benvenuto/a! Inizia a sfogliare i nostri "),
         _c(
           "router-link",
           { staticClass: "home-links", attrs: { to: { name: "articles" } } },
@@ -29184,7 +29205,9 @@ var render = function () {
                   {
                     staticClass:
                       "col-6 align-self-center btn btn-primary mt-auto",
-                    attrs: { to: { name: "details" } },
+                    attrs: {
+                      to: { name: "details", params: { slug: post.slug } },
+                    },
                   },
                   [_vm._v("Dettagli")]
                 ),
@@ -29298,7 +29321,9 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n  ciao\n")])
+  return _vm.post
+    ? _c("div", [_c("h1", [_vm._v(_vm._s(_vm.post.title))])])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -44973,7 +44998,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   }, {
     path: '/articles/:slug',
     name: 'details',
-    component: _pages_PageShow_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _pages_PageShow_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    props: true
   }]
 });
 var app = new Vue({

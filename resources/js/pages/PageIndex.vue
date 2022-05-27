@@ -7,8 +7,7 @@
           <div class="card-body d-flex flex-column">
             <h4 class="card-title text-uppercase text-center">{{ post.title }}</h4>
             <p class="py-2">{{ post.description }}</p>
-            <router-link :to="{ name: 'details' }" class="col-6 align-self-center btn btn-primary mt-auto">Dettagli</router-link>
-            <!-- <a :href="'/articles/:slug'" class="col-6 align-self-center btn btn-primary mt-auto">Dettagli</a> -->
+            <router-link :to="{ name: 'details', params: {slug: post.slug} }" class="col-6 align-self-center btn btn-primary mt-auto">Dettagli</router-link>
           </div>
         </div>
       </div>
@@ -38,7 +37,6 @@
 
 <script>
 export default {
-  name: 'ContainerCard',
   data() {
     return {
       posts: [],

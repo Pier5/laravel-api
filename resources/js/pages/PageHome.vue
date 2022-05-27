@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Benvenuto! inizia a sfogliare i nostri <router-link class="home-links" :to="{ name: 'articles' }">Articoli</router-link>!</h1>
+    <h1>Benvenuto/a! Inizia a sfogliare i nostri <router-link class="home-links" :to="{ name: 'articles' }">Articoli</router-link>!</h1>
   </div>
 </template>
 

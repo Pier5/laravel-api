@@ -34,6 +34,7 @@ const router = new VueRouter({
             path: '/articles/:slug',
             name: 'details',
             component: PageShow,
+            props: true,
         },
     ]
  });
