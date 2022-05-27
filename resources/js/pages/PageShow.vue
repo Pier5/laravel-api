@@ -8,7 +8,7 @@
     <h5 class="mb-4">{{ post.user.name }}</h5>
     <h4>Tags:</h4>
     <div class="d-flex">
-      <div v-for="tag in post.tags" :key="tag.id" class="me-3">
+      <div v-for="tag in post.tags" :key="tag.id" class="me-3 btn btn-primary">
         <h5>{{ tag.name }}</h5>
       </div>
     </div>
@@ -42,6 +42,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+  .btn-primary {
+    border-radius: 2rem;
+  }
 </style>
