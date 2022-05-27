@@ -32,7 +32,6 @@ Route::middleware('auth')
     Route::resource('/categories', 'CategoryController');
 });
 
-
 Route::get("{any?}", function() {
     return view("guests.home");
 })->where("any", ".*");

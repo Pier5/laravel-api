@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <header-guest />
-      <container-card />
+      <router-view />
   </div>
 </template>
 
