@@ -5348,6 +5348,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PageShow',
   props: ['slug'],
@@ -29322,7 +29334,34 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.post
-    ? _c("div", [_c("h1", [_vm._v(_vm._s(_vm.post.title))])])
+    ? _c("div", [
+        _c("h1", [_vm._v("Titolo:")]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "mb-3" }, [_vm._v(_vm._s(_vm.post.title))]),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Categoria:")]),
+        _vm._v(" "),
+        _c("h5", { staticClass: "mb-4" }, [
+          _vm._v(_vm._s(_vm.post.category.type)),
+        ]),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Nome autore:")]),
+        _vm._v(" "),
+        _c("h5", { staticClass: "mb-4" }, [_vm._v(_vm._s(_vm.post.user.name))]),
+        _vm._v(" "),
+        _c("h4", [_vm._v("Tags:")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "d-flex" },
+          _vm._l(_vm.post.tags, function (tag) {
+            return _c("div", { key: tag.id, staticClass: "me-3" }, [
+              _c("h5", [_vm._v(_vm._s(tag.name))]),
+            ])
+          }),
+          0
+        ),
+      ])
     : _vm._e()
 }
 var staticRenderFns = []
