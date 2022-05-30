@@ -25,6 +25,10 @@
                     <h6 class="pt-2">Data di nascita: {{ $post->user->userInfo->b_day }}</h6>
                 </div>
             </div>
+
+            <div class="g-4 pt-4">
+                <img src="{{ asset('storage/' . $post->post_img) }}" alt="{{ $post->title }}">
+            </div>
             <a class="btn btn-primary mt-4" href="{{ route('admin.home') }}"><span class="text-white">Torna indietro</span></a>
         </div>
       </main>

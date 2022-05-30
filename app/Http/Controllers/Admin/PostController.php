@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Post;
-use App\Category;
-use App\User;
 use App\Tag;
+use App\Post;
+use App\User;
+use App\Category;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Route;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -90,24 +91,31 @@ class PostController extends Controller
     {
         // $request->validate($this->validationRules);
         $request->validate($this->getValidators(null));
+
+        $data = $request->all();
+        $img_path = Storage::put('uploads', $data['post_img']);
+
         $formData = $request->all() + [
-            'user_id' => Auth::user()->id,
-        ];
+            'user_id'    => Auth::user()->id,
+            'post_img' => $img_path
+        ] + $data;
 
 
         // creare nuovi tag nel campo descrizione del create con la #
-        // preg_match_all('/#(\S*)\b/', $formData['description'], $tags_from_content);
-        // $tagIds = [];
-        // foreach($tags_from_content[1] as $tag) {
-        //     $newTag = Tag::create([
-        //         'name'  => $tag,
-        //         'slug'  => $tag
-        //     ]);
-
-        //     $tagIds[] = $newTag->id;
-        // }
-        // $formData['tags'] = $tagIds;
         
+        /*
+         preg_match_all('/#(\S*)\b/', $formData['description'], $tags_from_content);
+         $tagIds = [];
+         foreach($tags_from_content[1] as $tag) {
+             $newTag = Tag::create([
+                 'name'  => $tag,
+                 'slug'  => $tag
+             ]);
+
+             $tagIds[] = $newTag->id;
+         }
+         $formData['tags'] = $tagIds;
+        */
         
         $post = Post::create($formData);
         $post->tags()->attach($formData['tags']);

@@ -16,7 +16,7 @@
                     </ul>
                 </div>
             @endif
-            <form method="post" action="{{ route('admin.posts.store') }}">
+            <form method="post" action="{{ route('admin.posts.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="title" class="form-label">Titolo</label>
@@ -43,7 +43,7 @@
                 </div>
 
 
-                <fieldset>
+                <fieldset class="mb-3">
                     <legend>Tags</legend>
                     @foreach ($tags as $tag)
                         <input type="checkbox" name="tags[]" id="tag-{{ $tag->id }}" value="{{ $tag->id }}"
@@ -52,6 +52,10 @@
                     @endforeach
                 </fieldset>
 
+                <div class="mb-3 col-4">
+                    <label for="post_img" class="form-label">Carica una immagine</label>
+                    <input class="form-control" type="file" id="post_img" name="post_img" accept="image/*">
+                </div>
 
                 <button type="submit" class="btn btn-primary mt-4">Salva</button>
             </form>
