@@ -9,6 +9,7 @@ import PageHome from './pages/PageHome.vue';
 import PageAbout from './pages/PageAbout.vue';
 import PageIndex from './pages/PageIndex.vue';
 import PageShow from './pages/PageShow.vue';
+import PageContact from './pages/PageContact.vue';
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ const router = new VueRouter({
             name: 'details',
             component: PageShow,
             props: true,
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: PageContact,
         },
     ]
  });
