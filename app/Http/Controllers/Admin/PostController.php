@@ -169,7 +169,16 @@ class PostController extends Controller
         $request->validate($this->getValidators($post));
         $formData = $request->all();
 
+        if (array_key_exists('post_image', $formData)) {
+            Storage::delete($post->post_image);
+            $img_path = Storage::put('uploads', $formData['post_image']);
+            $formData = [
+                'post_image'    => $img_path
+            ] + $formData;
+        }
+
         $post->update($formData);
+        if (array_key_exists('tags', $formData)) $post->tags()->sync($formData['tags']);
         $post->tags()->sync($formData['tags']);
 
         return redirect()->route('admin.posts.show', $post->slug);

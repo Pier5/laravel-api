@@ -16,7 +16,7 @@
                     </ul>
                 </div>
             @endif
-            <form method="POST" action="{{ route('admin.posts.update', $post->slug) }}">
+            <form method="POST" action="{{ route('admin.posts.update', $post->slug) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -50,6 +50,11 @@
                     <label for="description" class="form-label">Descrizione</label>
                     <textarea class="form-control" name="description" id="description">{{ $post->description }}</textarea>
                 </div>
+                <div class="mb-3 col-4">
+                    <label for="post_image" class="form-label">Carica una immagine</label>
+                    <input class="form-control" type="file" id="post_image" name="post_image" accept="image/*">
+                </div>
+                <img src="{{ asset('storage/' . $post->post_image) }}" alt="{{ $post->title }}" class="mb-3 w-25 d-block">
                 <button type="submit" class="btn btn-primary">Salva</button>
             </form>
         </div>
