@@ -5360,6 +5360,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PageShow',
   props: ['slug'],
@@ -29384,6 +29386,11 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _vm.post
     ? _c("div", [
+        _c("img", {
+          staticClass: "w-25 mb-3",
+          attrs: { src: _vm.post.img_url, alt: "post.title" },
+        }),
+        _vm._v(" "),
         _c("h1", [_vm._v("Titolo:")]),
         _vm._v(" "),
         _c("h2", { staticClass: "mb-3" }, [_vm._v(_vm._s(_vm.post.title))]),

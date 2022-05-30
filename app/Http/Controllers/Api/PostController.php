@@ -53,12 +53,19 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::with(['category', 'tags', 'user'])->where('slug', $slug)->first();
-        return response()->json([
-            'success'    => true,
-            'response'   => [
-                'data'   => $post,
-            ]
-        ]);
+        if ($post) {
+            $post->img_url = asset('storage/' . $post->post_image);
+            return response()->json([
+                'success'   => true,
+                'response'  => [
+                    'data'  => $post,
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'success'   => false,
+            ]);
+        }
     }
 
     /**
