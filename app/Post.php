@@ -13,7 +13,7 @@ class Post extends Model
         'title', 
         'description', 
         'slug',
-        'post_img'
+        'post_image'
     ];
 
     public function getRouteKeyName()

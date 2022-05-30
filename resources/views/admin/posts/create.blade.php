@@ -53,8 +53,8 @@
                 </fieldset>
 
                 <div class="mb-3 col-4">
-                    <label for="post_img" class="form-label">Carica una immagine</label>
-                    <input class="form-control" type="file" id="post_img" name="post_img" accept="image/*">
+                    <label for="post_image" class="form-label">Carica una immagine</label>
+                    <input class="form-control" type="file" id="post_image" name="post_image" accept="image/*">
                 </div>
 
                 <button type="submit" class="btn btn-primary mt-4">Salva</button>

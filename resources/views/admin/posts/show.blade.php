@@ -26,9 +26,8 @@
                 </div>
             </div>
 
-            <div class="g-4 pt-4">
-                <img src="{{ asset('storage/' . $post->post_img) }}" alt="{{ $post->title }}">
-            </div>
+            <img src="{{ asset('storage/' . $post->post_image) }}" alt="{{ $post->title }}" class="g-4 pt-4 w-25 d-block">
+
             <a class="btn btn-primary mt-4" href="{{ route('admin.home') }}"><span class="text-white">Torna indietro</span></a>
         </div>
       </main>

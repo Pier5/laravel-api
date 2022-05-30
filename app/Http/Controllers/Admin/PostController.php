@@ -24,9 +24,10 @@ class PostController extends Controller
                 Rule::unique('posts')->ignore($model),
                 'max:100'
             ],
-            'category_id'  => 'required|exists:App\Category,id',
+            'category_id'   => 'required|exists:App\Category,id',
             'description'   => 'required',
-            'tags'          => 'required|exists:App\Tag,id'
+            'tags'          => 'required|exists:App\Tag,id',
+            'post_image'    => 'nullable|image'
         ];
     }
     /**
@@ -93,11 +94,12 @@ class PostController extends Controller
         $request->validate($this->getValidators(null));
 
         $data = $request->all();
-        $img_path = Storage::put('uploads', $data['post_img']);
 
-        $formData = $request->all() + [
-            'user_id'    => Auth::user()->id,
-            'post_img' => $img_path
+        $img_path = Storage::put('uploads', $data['post_image']);
+
+        $formData = [
+            'user_id'       => Auth::user()->id,
+            'post_image'    => $img_path
         ] + $data;
 
 
