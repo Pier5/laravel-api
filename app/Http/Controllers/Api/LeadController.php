@@ -7,6 +7,8 @@ use App\Mail\SendNewMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Validator;
 
 class LeadController extends Controller
 {
@@ -38,9 +40,29 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
-        $lead = Lead::create($request->all());
 
-        Mail::to('pier@prova.it')->send(new SendNewMail($lead));
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'message' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors(),
+            ]);
+        } else {
+            $lead = Lead::create($data);
+            Mail::to('pier@prova.it')->send(new SendNewMail($lead));
+
+            return response()->json([
+                'success' => true,
+                'statusMessage' => 'tutto Ok',
+            ]);
+        }
     }
 
     /**

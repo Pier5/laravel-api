@@ -2,7 +2,8 @@
   <header class="mb-3">
     <router-link class="head-links me-2" :to="{ name: 'home' }" >Home</router-link>
     <router-link class="head-links me-2" :to="{ name: 'articles' }" >Articoli</router-link>
-    <router-link class="head-links" :to="{ name: 'about' }" >Su di noi</router-link>
+    <router-link class="head-links me-2" :to="{ name: 'about' }" >Su di noi</router-link>
+    <router-link class="head-links" :to="{ name: 'contact' }" >Contattaci</router-link>
   </header>
 </template>
 

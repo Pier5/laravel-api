@@ -1,6 +1,6 @@
 <template>
   <div v-if="post">
-    <img :src="post.img_url" alt="post.title" class="w-25 mb-3">
+    <img :src="post.img_url" :alt="post.title" class="w-25 mb-3">
     <h1>Titolo:</h1>
     <h2 class="mb-3">{{ post.title }}</h2>
     <h4>Categoria:</h4>
