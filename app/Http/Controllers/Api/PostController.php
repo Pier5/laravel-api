@@ -8,18 +8,34 @@ use App\Post;
 
 class PostController extends Controller
 {
+    use \App\Traits\searchFilters;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::paginate(16);
+        $attributes = $request->all();
 
+        if (array_key_exists('home', $attributes)) {
+            return response()->json([
+                'success'   => true,
+                'response'  => [
+                    'data'
+                ]
+            ]);
+        }
+
+
+        $posts = $this->composeQuery($request);
+        $sql_string = $posts->toSql();
+
+        $posts = $posts->with(['user', 'category', 'tags'])->paginate(15);
         return response()->json([
-            'status'    => 'success',
-            'response'  => $posts
+            'success'   => true,
+            'response'  => $posts,
+            'sql'       => $sql_string
         ]);
     }
 

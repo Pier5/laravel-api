@@ -22,7 +22,7 @@ class PostSeeder extends Seeder
                 'category_id'   => Category::inRandomOrder()->first()->id,
                 'title'         => $title,
                 'description'   => $faker->text(rand(50, 300)),
-                'slug'          => Post::generateSlug($title)
+                'slug'          => Post::generateSlug($title),
             ]);
         }
     }

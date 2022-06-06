@@ -5391,36 +5391,90 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  // name: 'ContainerCard',
   data: function data() {
     return {
+      metadata: {},
       posts: [],
-      baseApiUrl: 'http://localhost:8000/api/posts',
+      filters: {
+        s: '',
+        author: '',
+        category: '',
+        tags: []
+      },
+      baseApiUrl: 'http://localhost:8000/api',
       nNewPage: null,
       prevPageUrl: null,
       nextPageUrl: null,
+      firstPageUrl: null,
+      lastPageUrl: null,
       nCurrentPage: null,
-      nLastPage: null // firstPageUrl: null,
-      // lastPageUrl: null,
-
+      nLastPage: null
     };
   },
   created: function created() {
-    this.getData(this.baseApiUrl);
+    var _this = this;
+
+    Axios.get(this.baseApiUrl + '/metadata').then(function (res) {
+      return _this.metadata = res.data;
+    });
+    this.getData(this.baseApiUrl + '/posts');
   },
   methods: {
     getData: function getData(url) {
-      var _this = this;
+      var _this2 = this;
 
       if (url) {
-        Axios.get(url).then(function (res) {
-          _this.posts = res.data.response.data;
-          _this.prevPageUrl = res.data.response.prev_page_url;
-          _this.nextPageUrl = res.data.response.next_page_url;
-          _this.nCurrentPage = res.data.response.current_page;
-          _this.nLastPage = res.data.response.last_page;
-          _this.nNewPage = null; // this.firstPageUrl = res.data.response.first_page_url;
-          // this.lastPageUrl = res.data.response.last_page_url;
+        Axios.get(url, {
+          params: this.filters
+        }).then(function (res) {
+          _this2.posts = res.data.response.data;
+          _this2.prevPageUrl = res.data.response.prev_page_url;
+          _this2.nextPageUrl = res.data.response.next_page_url;
+          _this2.firstPageUrl = res.data.response.first_page_url;
+          _this2.lastPageUrl = res.data.response.last_page_url;
+          _this2.nCurrentPage = res.data.response.current_page;
+          _this2.nLastPage = res.data.response.last_page;
+          _this2.nNewPage = null;
         });
       }
     }
@@ -29572,6 +29626,222 @@ var render = function () {
     _c("h1", [_vm._v("Sezione Articoli")]),
     _vm._v(" "),
     _c(
+      "form",
+      {
+        staticClass: "row g-3 mb-3",
+        on: {
+          submit: function ($event) {
+            $event.preventDefault()
+            return _vm.getData(_vm.baseApiUrl + "/posts")
+          },
+        },
+      },
+      [
+        _c("div", { staticClass: "col-md-6" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.category,
+                  expression: "filters.category",
+                },
+              ],
+              staticClass: "form-select",
+              attrs: {
+                "aria-label": "Default select example",
+                name: "category",
+                id: "category",
+              },
+              on: {
+                change: function ($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function (o) {
+                      return o.selected
+                    })
+                    .map(function (o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.filters,
+                    "category",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                },
+              },
+            },
+            [
+              _c("option", { attrs: { value: "", selected: "" } }, [
+                _vm._v("Select a category"),
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.metadata.categories, function (category) {
+                return _c(
+                  "option",
+                  { key: category.id, domProps: { value: category.id } },
+                  [_vm._v(_vm._s(category.type))]
+                )
+              }),
+            ],
+            2
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.author,
+                  expression: "filters.author",
+                },
+              ],
+              staticClass: "form-select",
+              attrs: {
+                "aria-label": "Default select example",
+                name: "author",
+                id: "author",
+              },
+              on: {
+                change: function ($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function (o) {
+                      return o.selected
+                    })
+                    .map(function (o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.filters,
+                    "author",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                },
+              },
+            },
+            [
+              _c("option", { attrs: { value: "", selected: "" } }, [
+                _vm._v("Select an author"),
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.metadata.users, function (user) {
+                return _c(
+                  "option",
+                  { key: user.id, domProps: { value: user.id } },
+                  [_vm._v(_vm._s(user.name))]
+                )
+              }),
+            ],
+            2
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-10" }, [
+          _c(
+            "label",
+            { staticClass: "form-label", attrs: { for: "search-string" } },
+            [_vm._v("Stringa di ricerca")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.filters.s,
+                expression: "filters.s",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "search-string", name: "s" },
+            domProps: { value: _vm.filters.s },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.filters, "s", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-12" }, [
+          _c(
+            "fieldset",
+            [
+              _c("legend", [_vm._v("Tags")]),
+              _vm._v(" "),
+              _vm._l(_vm.metadata.tags, function (tag) {
+                return _c("div", { key: tag.id }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filters.tags,
+                        expression: "filters.tags",
+                      },
+                    ],
+                    attrs: {
+                      type: "checkbox",
+                      name: "tags[]",
+                      id: "tag" + tag.id,
+                    },
+                    domProps: {
+                      value: tag.name,
+                      checked: Array.isArray(_vm.filters.tags)
+                        ? _vm._i(_vm.filters.tags, tag.name) > -1
+                        : _vm.filters.tags,
+                    },
+                    on: {
+                      change: function ($event) {
+                        var $$a = _vm.filters.tags,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = tag.name,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(_vm.filters, "tags", $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.filters,
+                                "tags",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.filters, "tags", $$c)
+                        }
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "tag" + tag.id } }, [
+                    _vm._v(_vm._s(tag.name)),
+                  ]),
+                ])
+              }),
+            ],
+            2
+          ),
+        ]),
+        _vm._v(" "),
+        _vm._m(0),
+      ]
+    ),
+    _vm._v(" "),
+    _c(
       "div",
       { staticClass: "row g-4 mb-5" },
       _vm._l(_vm.posts, function (post) {
@@ -29642,7 +29912,7 @@ var render = function () {
                   submit: function ($event) {
                     $event.preventDefault()
                     return _vm.getData(
-                      _vm.baseApiUrl + "/?page=" + _vm.nNewPage
+                      _vm.baseApiUrl + "/posts/?page=" + _vm.nNewPage
                     )
                   },
                 },
@@ -29690,7 +29960,18 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2" }, [
+      _c("button", { staticClass: "btn btn-primary" }, [
+        _vm._v("Applica filtri"),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
